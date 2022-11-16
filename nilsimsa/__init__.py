@@ -1,9 +1,10 @@
 
-from nilsimsa.utils import TRAN, POPC
+from nilsimsa.utils import TRAN, POPC, Algorithms
+from algorithhms import *
 
 
 class Nilsimsa(object):
-    def __init__(self, accumulator_size = 256, digest_size = 32, threshold = None, transformation_const = TRAN, trigram_random=[0,1,2,3,4,5,6,7], data = None):
+    def __init__(self, accumulator_size = 256, algorithm = Algorithms.TRAN, digest_size = 32, threshold = None, transformation_const = TRAN, trigram_random=[0,1,2,3,4,5,6,7], data = None):
        
         self._digest = None
         self.num_char = 0          
@@ -13,6 +14,7 @@ class Nilsimsa(object):
         self.threshold = threshold
         self.digest_size = digest_size
         self.transformation_const = transformation_const
+        self.algorithm = algorithm
 
 
         if data:
@@ -45,7 +47,6 @@ class Nilsimsa(object):
                 self.acc[self.tran_hash(c, self.window[0], self.window[3], self.trigram_randdom[3])] += 1
                 self.acc[self.tran_hash(c, self.window[1], self.window[3], self.trigram_randdom[4])] += 1
                 self.acc[self.tran_hash(c, self.window[2], self.window[3], self.trigram_randdom[5])] += 1
-                # duplicate hashes, used to maintain 8 trigrams per character
                 self.acc[self.tran_hash(self.window[3], self.window[0], c, self.trigram_randdom[6])] += 1
                 self.acc[self.tran_hash(self.window[3], self.window[2], c, self.trigram_randdom[7])] += 1
 
@@ -55,7 +56,7 @@ class Nilsimsa(object):
             else:
                 self.window = [c] + self.window[:3]
             
-            # print(self.window)
+
 
 
     def compute_digest(self):

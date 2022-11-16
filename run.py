@@ -1,4 +1,5 @@
 from nilsimsa import *
+from algorithhms import *
 # from nilsimsa.nil import *
 
 # n1 = Nilsimsa(data="efewre 7ew8f 8w7e 78w74rer")
@@ -11,7 +12,7 @@ from nilsimsa import *
 
 # print(len(freq))
 # print(POPC[5])
-n1 = Nilsimsa(data="i have a cow")
+n1 = Nilsimsa(data="i have a cow", algorithm=Algorithms.TRAN)
 n2 = Nilsimsa(data="there is he")
 
 
