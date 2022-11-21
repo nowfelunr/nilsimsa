@@ -11,3 +11,4 @@ class ThresholdType:
     Q1 = "Q1"
     Q2 = "Q2"
     STANDARD_DEVIATION = "std"
+    MODE = "mode"

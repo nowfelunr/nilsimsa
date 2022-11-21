@@ -21,7 +21,7 @@ from algorithhms import *
 # print(n3.hexdigest())
 n1 = Nilsimsa(data="i have a coedfewrewr werwe werf wetwer wertwer 4werewrw")
 print(n1.hexdigest())
-n2 = Nilsimsa(data="i cave a coedfewrewr werwe werf wetwer wertwer 4werewrw")
+n2 = Nilsimsa(data="i cave a coedfewrewr werwe werf wetwer wertwer 4werewrw",  threshold_type=ThresholdType.STANDARD_DEVIATION, window_size=6, n_grams=3)
 # n2 = Nilsimsa(data="there is he")
 
 

@@ -3,7 +3,7 @@ from nilsimsa.utils import TRAN, POPC
 from algorithhms import *
 import numpy as np
 from itertools import combinations
-
+import statistics as st
 class Nilsimsa(object):
     def __init__(self, accumulator_size = 256, algorithm = Algorithms.TRAN, window_size = 5, n_grams = 3,  digest_size = 32, threshold_type = ThresholdType.MEAN, transformation_const = TRAN, trigram_random=[0,1,2,3,4,5,6,7], data = None):
        
@@ -49,11 +49,11 @@ class Nilsimsa(object):
                 self.acc[self.tran_hash(c, self.window[0], self.window[1], self.trigram_randdom[0])] += 1
             
             elif len(self.window) > 2:
-                combis = combinations(self.window, self.n_grams-1)
+                all_combinations = combinations(self.window, self.n_grams-1)
 
-                for idx, com in enumerate(combis):
+                for idx, combi in enumerate(all_combinations):
                     # print(idx)
-                    self.update_accumulator(c, com[0], com[1], idx+1)
+                    self.update_accumulator(c, combi[0], combi[1], idx+1)
 
                 
 
@@ -87,7 +87,6 @@ class Nilsimsa(object):
             return num_trigrams / 256.0
         
         if self.threshold_type == ThresholdType.MEDIAN:
-            # print(self.acc)
             return np.median(self.acc)
         
         if self.threshold_type == ThresholdType.IQR:
@@ -97,6 +96,13 @@ class Nilsimsa(object):
         
         if self.threshold_type == ThresholdType.STANDARD_DEVIATION:
             return np.std(self.acc)
+
+        if self.threshold_type == ThresholdType.MODE:
+            return st.mode(self.window)
+        
+
+
+        
         
 
 
