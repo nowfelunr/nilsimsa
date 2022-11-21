@@ -19,9 +19,9 @@ from algorithhms import *
 
 # n3 = Nilsimsa(data="i have a coedfewrewr werwe werf wetwer wertwer 4werewrw", threshold_type=ThresholdType.IQR, window_size=4)
 # print(n3.hexdigest())
-n1 = Nilsimsa(data="i have a coedfewrewr werwe werf wetwer wertwer 4werewrw", threshold_type=ThresholdType.MEAN)
+n1 = Nilsimsa(data="i have a coedfewrewr werwe werf wetwer wertwer 4werewrw")
 print(n1.hexdigest())
-
+n2 = Nilsimsa(data="i cave a coedfewrewr werwe werf wetwer wertwer 4werewrw")
 # n2 = Nilsimsa(data="there is he")
 
 
@@ -30,4 +30,4 @@ print(n1.hexdigest())
 # # # print(dig2)
 # print(n1.hexdigest())
 # print(n2.hexdigest())
-# print(compare_digests(n1.hexdigest(), n2.hexdigest()))
+print(compare_digests(n1.hexdigest(), n2.hexdigest()))

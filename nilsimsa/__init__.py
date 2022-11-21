@@ -51,8 +51,9 @@ class Nilsimsa(object):
             elif len(self.window) > 2:
                 combis = combinations(self.window, self.n_grams-1)
 
-                for com in combis:
-                    self.update_accumulator(c, com[0], com[1], 5)
+                for idx, com in enumerate(combis):
+                    # print(idx)
+                    self.update_accumulator(c, com[0], com[1], idx+1)
 
                 
 
@@ -75,6 +76,7 @@ class Nilsimsa(object):
                 self.window = [c] + self.window
             else:
                 self.window = [c] + self.window[:self.window_size-2]
+            # print(len(self.window))
             
 
 
@@ -85,7 +87,7 @@ class Nilsimsa(object):
             return num_trigrams / 256.0
         
         if self.threshold_type == ThresholdType.MEDIAN:
-            print(self.acc)
+            # print(self.acc)
             return np.median(self.acc)
         
         if self.threshold_type == ThresholdType.IQR:
@@ -100,17 +102,17 @@ class Nilsimsa(object):
 
 
     def compute_digest(self):
-        num_trigrams = 0
-        if self.num_char == 3:          
-            num_trigrams = 1
-        elif self.num_char == 4:      
-            num_trigrams = 4
-        elif self.num_char > 4:        
-            num_trigrams = 8 * self.num_char - 28
+        # num_trigrams = 0
+        # if self.num_char == 3:          
+        #     num_trigrams = 1
+        # elif self.num_char == 4:      
+        #     num_trigrams = 4
+        # elif self.num_char > 4:        
+        #     num_trigrams = 8 * self.num_char - 28
         
 
         self.threshold = self.calculate_threshold()
-        print(self.threshold)
+        # print(self.threshold)
 
         digest = [0] * self.digest_size
         digest2 = [0] * 256
