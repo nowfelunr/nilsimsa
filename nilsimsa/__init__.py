@@ -19,6 +19,9 @@ class Nilsimsa(object):
         self.window_size = window_size
         self.n_grams = n_grams 
 
+        # abc
+        # abd
+
 
         if data:
             if isinstance(data, (bytes, str)):
