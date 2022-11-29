@@ -5,6 +5,7 @@ import zlib
 from fnvhash import fnv1a_32, fnv1_64, fnv1a_64
 import mmh3
 from pearhash import PearsonHasher
+from ripemd128 import ripemd128
 
 
 
@@ -13,7 +14,7 @@ hash_api_base_url = "https://md5calc.com/hash"
 listed_hasehs = [
     'md2', 'md5', 'md4', 'sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'ripemd128', 'ripemd160', 'ripemd256', 
     'ripemd320', 'whirlpool', 'snefru', 'snefru256', 'gost', 'adler32', 'crc32', 'fnv132', 'fnv164', 'fnv1a_64', 
-    'fnv1aa_32', 'joaat', 'mmh3', 'dbj2', 'sdbm', 'pearson', 'haval128_3', 'haval160_3', 'haval192_3', 'haval224_3', 
+    'fnv1a_32', 'joaat', 'mmh3', 'dbj2', 'sdbm', 'pearson', 'haval128_3', 'haval160_3', 'haval192_3', 'haval224_3', 
     'haval256_3', 'haval128_4', 'haval160_4', 'haval192_4', 'haval224_4', 'haval256_4', 'haval128_5', 'haval160_5', 
     'haval192_5', 'haval224_5','haval256_5'
     ]
@@ -69,20 +70,24 @@ def _get_sha512(txt):
 
 
 def _get_ripemd128(txt):
-    h = hashlib.new('ripemd128', txt.encode('utf-8'))
-    return h.hexdigest()
+    # h = hashlib.new('ripemd128', txt.encode('utf-8'))
+    digest = ripemd128(txt.encode('utf-8'))
+    return digest
 
 def _get_ripemd160(txt):
-    h = hashlib.new('ripemd160', txt.encode('utf-8'))
-    return h.hexdigest()
+    data = convert_spaced_str(txt)
+    req = requests.get(f'{hash_api_base_url}/ripemd160.json/' + data)
+    return req.text.replace('"', '')
 
 def _get_ripemd256(txt):
-    h = hashlib.new('ripemd256', txt.encode('utf-8'))
-    return h.hexdigest()
+    data = convert_spaced_str(txt)
+    req = requests.get(f'{hash_api_base_url}/ripemd256.json/' + data)
+    return req.text.replace('"', '')
 
 def _get_ripemd320(txt):
-    h = hashlib.new('ripemd320', txt.encode('utf-8'))
-    return h.hexdigest()
+   data = convert_spaced_str(txt)
+   req = requests.get(f'{hash_api_base_url}/ripemd320.json/' + data)
+   return req.text.replace('"', '')
 
 def _get_whirlpool(txt):
     h = hashlib.new('whirlpool', txt.encode('utf-8'))
