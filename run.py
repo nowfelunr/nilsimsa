@@ -19,14 +19,14 @@ from algorithhms import *
 
 # n3 = Nilsimsa(data="i have a coedfewrewr werwe werf wetwer wertwer 4werewrw", threshold_type=ThresholdType.IQR, window_size=4)
 # print(n3.hexdigest())
-n1 = Nilsimsa(data="i have a coedfewrewr werwe werf wetwer wertwer 4werewrw")
+n1 = Nilsimsa(data="i have a coedfewrewr werwe werf wetwer wertwer 4werewrw", algorithm=Algorithms.MD5)
 print(n1.hexdigest())
-n2 = Nilsimsa(data="i cave a coedfewrewr werwe werf wetwer wertwer 4werewrw",  threshold_type=ThresholdType.STANDARD_DEVIATION, window_size=6, n_grams=3)
+n2 = Nilsimsa(data="i cave a coedfewrewr werwe werf wetwer wertwer 4werewrw", algorithm=Algorithms.MD5)
 # n2 = Nilsimsa(data="there is he")
 
 
 # print(n2.digest)
-# print(n2.hexdigest())
+print(n2.hexdigest())
 # # # print(dig2)
 # print(n1.hexdigest())
 # print(n2.hexdigest())

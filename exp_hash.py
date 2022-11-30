@@ -8,6 +8,9 @@ listed_hasehs = [
     'haval192_5', 'haval224_5','haval256_5'
     ]
 
-for hs in listed_hasehs:
+# for hs in listed_hasehs:
 
-    print(get_hash(text="hello", hash_name=hs))
+
+hv = get_hash(text="hello", hash_name='md2')
+
+print(int(hv, 16))

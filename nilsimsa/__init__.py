@@ -4,6 +4,8 @@ from algorithhms import *
 import numpy as np
 from itertools import combinations
 import statistics as st
+from all_hashes import get_hash
+from utils import interpolate
 class Nilsimsa(object):
     def __init__(self, accumulator_size = 256, algorithm = Algorithms.TRAN, window_size = 5, n_grams = 3,  digest_size = 32, threshold_type = ThresholdType.MEAN, transformation_const = TRAN, trigram_random=[0,1,2,3,4,5,6,7], data = None):
        
@@ -19,9 +21,6 @@ class Nilsimsa(object):
         self.window_size = window_size
         self.n_grams = n_grams 
 
-        # abc
-        # abd
-
 
         if data:
             if isinstance(data, (bytes, str)):
@@ -35,7 +34,13 @@ class Nilsimsa(object):
 
     
     def update_accumulator(self, a, b, c, rnd):
-        self.acc[self.tran_hash(c, a, b, rnd)] += 1
+        if self.algorithm != Algorithms.TRAN:
+            hash_val = get_hash(f"{a}{b}{c}", self.algorithm.name)
+            int_hash_value = int(hash_val, 16)
+            interpolated_value = interpolate(int_hash_value, self.algorithm.min_size, self.algorithm.max_size, 0, 256)
+            self.acc[interpolated_value] += 1 
+        else:
+            self.acc[self.tran_hash(c, a, b, rnd)] += 1
 
     
     def process(self, chunk):
