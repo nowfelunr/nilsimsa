@@ -40,16 +40,16 @@ window_sizes = [4,5,6,7,8,9,10]
 threshold_types = [ThresholdType.MEAN, ThresholdType.MEDIAN, ThresholdType.MODE]
 
 listed_algorithms = [Algorithms.MD2, Algorithms.MD5, Algorithms.SHA256]
-
+iteration_no = 1
 for gram in n_grams:
     for acc_size in range(accumlator_sizes[0], accumlator_sizes[1], 8):
         for window_size in window_sizes:
             for threshold_type in threshold_types:
                 for algorithm in listed_algorithms:
-                    
-                    print("\n-----------------------------------------")
+                    print(f"\n------------------------Current Iteratiion: {iteration_no}------------------------")
+                    iteration_no += 1
                     print(f"Algo = {algorithm.name}, Th Type = {threshold_type}, Window Size = {window_size}, Acc Size = {acc_size}, Gram Size = {gram}")
                     nil = Nilsimsa(accumulator_size = acc_size, algorithm = algorithm, window_size = window_size, threshold_type = threshold_type, data=text)
                     print(f'Hash Value: {nil.hexdigest()}')
-                    print("-----------------------------------------")
+                    print("--------------------------------------------------------------------------------------")
 

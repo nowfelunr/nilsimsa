@@ -49,8 +49,14 @@ def _get_md5(txt):
 
 
 def _get_md4(txt):
-    h = hashlib.new('md4', txt.encode('utf-8'))
-    return h.hexdigest()
+    try:
+        h = hashlib.new('md4', txt.encode('utf-8'))
+        return h.hexdigest()
+    except:
+        data = convert_spaced_str(txt)
+        req = requests.get(f'{hash_api_base_url}/md4.json/' + data)
+        return req.text.replace('"', '')
+    
 
 def _get_sha1(txt):
     return hashlib.sha1(txt.encode('utf-8')).hexdigest()
