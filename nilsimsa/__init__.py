@@ -59,7 +59,8 @@ class Nilsimsa(object):
             self.num_char += 1 
             c = char
             if len(self.window) == 2:
-                current_letters = [c, self.window[0], self.window[1], 0]     
+                current_letters = [c, self.window[0], self.window[1]]    
+                self.update_accumulator(current_letters, 0)  
                 # self.acc[self.tran_hash(c, self.window[0], self.window[1], self.trigram_randdom[0])] += 1
             
             elif len(self.window) > 2:

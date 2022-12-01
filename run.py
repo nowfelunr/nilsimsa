@@ -47,7 +47,7 @@ for gram in n_grams:
             for threshold_type in threshold_types:
                 for algorithm in listed_algorithms:
                     
-                    print("-----------------------------------------")
+                    print("\n-----------------------------------------")
                     print(f"Algo = {algorithm.name}, Th Type = {threshold_type}, Window Size = {window_size}, Acc Size = {acc_size}, Gram Size = {gram}")
                     nil = Nilsimsa(accumulator_size = acc_size, algorithm = algorithm, window_size = window_size, threshold_type = threshold_type, data=text)
                     print(f'Hash Value: {nil.hexdigest()}')
