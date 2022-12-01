@@ -7,20 +7,23 @@ import statistics as st
 from all_hashes import get_hash
 from utils import interpolate
 class Nilsimsa(object):
-    def __init__(self, accumulator_size = 256, algorithm = Algorithms.TRAN, window_size = 5, n_grams = 3,  digest_size = 32, threshold_type = ThresholdType.MEAN, transformation_const = TRAN, trigram_random=[0,1,2,3,4,5,6,7], data = None):
+    def __init__(self, accumulator_size = 256, algorithm = Algorithms.TRAN, window_size = 5, n_grams = 3, threshold_type = ThresholdType.MEAN, transformation_const = TRAN, trigram_random=[0,1,2,3,4,5,6,7], data = None):
        
         self._digest = None
-        self.num_char = 0          
+        self.num_char = 0 
+        self.accumulator_size = accumulator_size         
         self.acc = [0] * accumulator_size       
         self.window = []          
         self.trigram_randdom = trigram_random
         self.threshold_type = threshold_type
-        self.digest_size = digest_size
+        self.digest_size = accumulator_size/8
         self.transformation_const = transformation_const
         self.algorithm = algorithm
         self.window_size = window_size
         self.n_grams = n_grams 
 
+        # if accumulator_size / digest_size != 8:
+        #     raise Exception("invalid accumulator to digest size error. accumulator_size should be 8 * digest size.")
 
         if data:
             if isinstance(data, (bytes, str)):
@@ -33,14 +36,16 @@ class Nilsimsa(object):
         return ((self.transformation_const[(a+n)&255]^self.transformation_const[b]*(n+n+1))+self.transformation_const[(c)^self.transformation_const[n]]) & 255
 
     
-    def update_accumulator(self, a, b, c, rnd):
+    def update_accumulator(self, letters, rnd):
         if self.algorithm != Algorithms.TRAN:
-            hash_val = get_hash(f"{a}{b}{c}", self.algorithm.name)
+            letters = [chr(x) for x in letters]
+            current_data = '' . join(letters)
+            hash_val = get_hash(current_data, self.algorithm.name)
             int_hash_value = int(hash_val, 16)
-            interpolated_value = interpolate(int_hash_value, self.algorithm.min_size, self.algorithm.max_size, 0, 256)
+            interpolated_value = interpolate(int_hash_value, self.algorithm.min_size, self.algorithm.max_size, 0, self.accumulator_size)
             self.acc[interpolated_value] += 1 
         else:
-            self.acc[self.tran_hash(c, a, b, rnd)] += 1
+            self.acc[self.tran_hash(letters[0], letters[1], letters[2], rnd)] += 1
 
     
     def process(self, chunk):
@@ -53,15 +58,19 @@ class Nilsimsa(object):
         for char in chunk:
             self.num_char += 1 
             c = char
-            if len(self.window) == 2:      
-                self.acc[self.tran_hash(c, self.window[0], self.window[1], self.trigram_randdom[0])] += 1
+            if len(self.window) == 2:
+                current_letters = [c, self.window[0], self.window[1], 0]     
+                # self.acc[self.tran_hash(c, self.window[0], self.window[1], self.trigram_randdom[0])] += 1
             
             elif len(self.window) > 2:
                 all_combinations = combinations(self.window, self.n_grams-1)
 
                 for idx, combi in enumerate(all_combinations):
-                    # print(idx)
-                    self.update_accumulator(c, combi[0], combi[1], idx+1)
+                    current_letters = [c]
+                    current_letters.extend(combi)
+
+                    # print(current_letters)
+                    self.update_accumulator(current_letters, idx+1)
 
                 
 
@@ -108,11 +117,14 @@ class Nilsimsa(object):
         if self.threshold_type == ThresholdType.MODE:
             return st.mode(self.window)
         
-
-
+        if self.threshold_type == ThresholdType.Q1:
+            q75, q25 = np.percentile(self.acc, [75 ,25])
+            return q75
         
+        if self.threshold_type == ThresholdType.Q2:
+            q75, q25 = np.percentile(self.acc, [75 ,25])
+            return q25
         
-
 
 
     def compute_digest(self):
@@ -128,32 +140,32 @@ class Nilsimsa(object):
         self.threshold = self.calculate_threshold()
         # print(self.threshold)
 
-        digest = [0] * self.digest_size
-        digest2 = [0] * 256
-        for i in range(256):
+        # digest = [0] * self.digest_size
+        digest2 = [0] * self.accumulator_size
+        for i in range(self.accumulator_size):
             if self.acc[i] > self.threshold:
                 # print(1 << (i & 7))
-                # digest2[i] = 1
-                digest[i >> 3] += 1 << (i & 7)     
-        
-        # pow = 7
-        # res = []
-        # curr_val = 0
-        # for i in range(256):
-        #     curr_val += (2**pow) * digest2[i]
-        #     pow -= 1
-        #     if pow == -1 :
-        #         res.append(curr_val)
-        #         curr_val = 0
-        #         pow = 7
-        # # print(len(res))
+                digest2[i] = 1
+                # digest[i >> 3] += 1 << (i & 7)     
+        # print(digest2)
+        pow = 7
+        res = []
+        curr_val = 0
+        for i in range(self.accumulator_size):
+            curr_val += (2**pow) * digest2[i]
+            pow -= 1
+            if pow == -1 :
+                res.append(curr_val)
+                curr_val = 0
+                pow = 7
+        # print(len(res))
 
         # # print(bin(digest[1]))
 
 
 
-        self._digest = digest[::-1]   
-        # self._digest = res[::-1]
+        # self._digest = digest[::-1]   
+        self._digest = res[::-1]
 
     @property
     def digest(self):
