@@ -97,7 +97,7 @@ class Algorithms:
         max_size = 2**32
     
     class FNV164:
-        name = "fnv64"
+        name = "fnv164"
         min_size = 0
         max_size = 2**64
 
@@ -197,7 +197,10 @@ class Algorithms:
     # 'fnv1a_32', 'joaat', 'mmh3', 'dbj2', 'sdbm', 'pearson', 'haval128_3', 'haval160_3', 'haval192_3', 'haval224_3', 
     # 'haval256_3', 'haval128_4', 'haval160_4', 'haval192_4', 'haval224_4', 'haval256_4', 'haval128_5', 'haval160_5', 
     # 'haval192_5', 'haval224_5','haval256_5'
-    TRAN = "tran"
+    class TRAN:
+        name = "tran"
+        min_size = 0
+        max_size = 256
     # MD5 = "md2"
     # SHA2 = "md5"
 class ThresholdType:

@@ -115,7 +115,7 @@ def _get_gost(txt):
     return req.text.replace('"', '')
 
 def _get_adler32(txt):
-    return zlib.adler32(txt.encode('utf-8'))
+    return hex(zlib.adler32(txt.encode('utf-8')))
 
 def _get_crc32(txt):
     return hex(zlib.crc32(txt.encode('utf-8'))% 2**32)
@@ -139,7 +139,7 @@ def _get_joaat(txt):
     return req.text.replace('"', '')
 
 def _get_mmh3(txt):
-    return mmh3.hash(txt.encode('utf-8')) 
+    return hex(mmh3.hash(txt.encode('utf-8')))
 
 def _get_dbj2(txt):
     hash = 5381

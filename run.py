@@ -48,7 +48,7 @@ listed_algorithms = [
     Algorithms.SHA1, Algorithms.SHA224, Algorithms.SHA256,
     Algorithms.SHA384, Algorithms.SHA512, Algorithms.WHIRLPOOL,
     Algorithms.ADLER32, Algorithms.CRC32, Algorithms.FNV132, Algorithms.FNV164,
-    Algorithms.MMH3, 
+    Algorithms.MMH3
     ]
 iteration_no = 1
 for gram in n_grams:
