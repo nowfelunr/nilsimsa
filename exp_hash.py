@@ -8,7 +8,10 @@ listed_hasehs = [
     'haval192_5', 'haval224_5','haval256_5'
     ]
 
-for hs in listed_hasehs:
-    hv = get_hash(text="hello", hash_name=hs)
+# for hs in listed_hasehs:
+#     hv = get_hash(text="hello", hash_name=hs)
 
-    print(hv)
+#     print(hv)
+
+hv = get_hash(text="The quick brown fox jumps over the lazy dog", hash_name="haval128_4")
+print(hv)

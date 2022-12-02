@@ -39,7 +39,7 @@ accumlator_sizes = [8, 1024]
 window_sizes = [4,5,6,7,8,9,10]
 threshold_types = [ThresholdType.MEAN, ThresholdType.MEDIAN, ThresholdType.MODE]
 
-listed_algorithms = [Algorithms.MD2, Algorithms.MD5, Algorithms.SHA256]
+listed_algorithms = [Algorithms.fnv132, Algorithms.MD2, Algorithms.MD5, Algorithms.SHA256]
 iteration_no = 1
 for gram in n_grams:
     for acc_size in range(accumlator_sizes[0], accumlator_sizes[1], 8):

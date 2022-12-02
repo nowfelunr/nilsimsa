@@ -100,6 +100,96 @@ class Algorithms:
         name = "fnv64"
         min_size = 0
         max_size = 2**64
+
+    class MMH3:
+        name = "mmh3"
+        min_size = 2**32
+        max_size = 2**64
+    
+    class HAVAL128_3:
+        name = "haval128_3"
+        min_size = 0
+        max_size = 2**128
+    
+    class HAVAL160_3:
+        name = "haval160_3"
+        min_size = 0
+        max_size = 2**160
+    
+    class HAVAL192_3:
+        name = "haval192_3"
+        min_size = 0
+        max_size = 2**192
+
+    class HAVAL224_3:
+        name = "haval224_3"
+        min_size = 0
+        max_size = 2**224
+
+    class HAVAL256_3:
+        name = "haval256_3"
+        min_size = 0
+        max_size = 2**256
+    
+    class HAVAL128_4:
+        name = "haval128_4"
+        min_size = 0
+        max_size = 2**128
+    
+
+    class HAVAL160_4:
+        name = "haval160_4"
+        min_size = 0
+        max_size = 2**160
+
+    class HAVAL160_4:
+        name = "haval160_4"
+        min_size = 0
+        max_size = 2**160
+
+    class HAVAL192_4:
+        name = "haval192_4"
+        min_size = 0
+        max_size = 2**192
+    
+    class HAVAL224_4:
+        name = "haval224_4"
+        min_size = 0
+        max_size = 2**224
+
+    class HAVAL256_4:
+        name = "haval256_4"
+        min_size = 0
+        max_size = 2**256
+
+    
+    class HAVAL128_5:
+        name = "haval128_5"
+        min_size = 0
+        max_size = 2**128
+
+    class HAVAL160_5:
+        name = "haval160_5"
+        min_size = 0
+        max_size = 2**160
+    
+    class HAVAL192_5:
+        name = "haval192_5"
+        min_size = 0
+        max_size = 2**192
+    
+
+    class HAVAL224_5:
+        name = "haval224_5"
+        min_size = 0
+        max_size = 2**224
+
+    class HAVAL256_5:
+        name = "haval256_5"
+        min_size = 0
+        max_size = 2**256
+    
+
     
 
     # 'md2', 'md5', 'md4', 'sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'ripemd128', 'ripemd160', 'ripemd256', 
