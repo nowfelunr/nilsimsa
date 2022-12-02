@@ -91,12 +91,12 @@ class Algorithms:
         min_size = 0
         max_size = 2**32
 
-    class fnv132:
+    class FNV132:
         name = "fnv132"
         min_size = 0
         max_size = 2**32
     
-    class fnv164:
+    class FNV164:
         name = "fnv64"
         min_size = 0
         max_size = 2**64

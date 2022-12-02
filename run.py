@@ -34,12 +34,22 @@ from algorithhms import *
 
 text = "The quick brown fox jumps over the lazy dog"
 
-n_grams = [3,4,5,6,7,8,9,10] 
+n_grams = [2, 3,4,5,6,7,8,9,10] 
 accumlator_sizes = [8, 1024]
-window_sizes = [4,5,6,7,8,9,10]
-threshold_types = [ThresholdType.MEAN, ThresholdType.MEDIAN, ThresholdType.MODE]
+window_sizes = [2, 3, 4,5,6,7,8,9,10]
+threshold_types = [
+    ThresholdType.MEAN, ThresholdType.MEDIAN, ThresholdType.MODE,
+    ThresholdType.IQR, ThresholdType.Q1, ThresholdType.Q2,
+    ThresholdType.STANDARD_DEVIATION,
+    ]
 
-listed_algorithms = [Algorithms.fnv132, Algorithms.MD2, Algorithms.MD5, Algorithms.SHA256]
+listed_algorithms = [
+    Algorithms.MD2, Algorithms.MD5, Algorithms.MD4,
+    Algorithms.SHA1, Algorithms.SHA224, Algorithms.SHA256,
+    Algorithms.SHA384, Algorithms.SHA512, Algorithms.WHIRLPOOL,
+    Algorithms.ADLER32, Algorithms.CRC32, Algorithms.FNV132, Algorithms.FNV164,
+    Algorithms.MMH3, 
+    ]
 iteration_no = 1
 for gram in n_grams:
     for acc_size in range(accumlator_sizes[0], accumlator_sizes[1], 8):
