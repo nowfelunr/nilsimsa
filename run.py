@@ -47,9 +47,10 @@ listed_algorithms = [
     Algorithms.MD2, Algorithms.MD5, Algorithms.MD4,
     Algorithms.SHA1, Algorithms.SHA224, Algorithms.SHA256,
     Algorithms.SHA384, Algorithms.SHA512, Algorithms.WHIRLPOOL,
-    Algorithms.ADLER32, Algorithms.CRC32, Algorithms.FNV132, Algorithms.FNV164,
+    Algorithms.ADLER32, Algorithms.CRC32, Algorithms.FNV132, Algorithms.FNV1A32, Algorithms.FNV1A64, Algorithms.FNV164,
     Algorithms.MMH3
     ]
+
 iteration_no = 1
 for gram in n_grams:
     for acc_size in range(accumlator_sizes[0], accumlator_sizes[1], 8):

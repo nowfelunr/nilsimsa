@@ -100,6 +100,17 @@ class Algorithms:
         name = "fnv164"
         min_size = 0
         max_size = 2**64
+    
+    class FNV1A64:
+        name = "fnv1a_64"
+        min_size = 0
+        max_size = 2**64
+    
+    class FNV1A32:
+        name = "fnv1a_32"
+        min_size = 0
+        max_size = 2**32
+
 
     class MMH3:
         name = "mmh3"
