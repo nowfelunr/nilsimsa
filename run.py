@@ -34,33 +34,39 @@ from algorithhms import *
 
 text = "The quick brown fox jumps over the lazy dog"
 
-n_grams = [2, 3,4,5,6,7,8,9,10] 
-accumlator_sizes = [8, 1024]
-window_sizes = [2, 3, 4,5,6,7,8,9,10]
-threshold_types = [
-    ThresholdType.MEAN, ThresholdType.MEDIAN, ThresholdType.MODE,
-    ThresholdType.IQR, ThresholdType.Q1, ThresholdType.Q2,
-    ThresholdType.STANDARD_DEVIATION,
-    ]
 
-listed_algorithms = [
-    Algorithms.MD2, Algorithms.MD5, Algorithms.MD4,
-    Algorithms.SHA1, Algorithms.SHA224, Algorithms.SHA256,
-    Algorithms.SHA384, Algorithms.SHA512, Algorithms.WHIRLPOOL,
-    Algorithms.ADLER32, Algorithms.CRC32, Algorithms.FNV132, Algorithms.FNV1A32, Algorithms.FNV1A64, Algorithms.FNV164,
-    Algorithms.MMH3
-    ]
+f = open('iot-sentinal/IPMAC-1-1.pcap', 'rb')
 
-iteration_no = 1
-for gram in n_grams:
-    for acc_size in range(accumlator_sizes[0], accumlator_sizes[1], 8):
-        for window_size in window_sizes:
-            for threshold_type in threshold_types:
-                for algorithm in listed_algorithms:
-                    print(f"\n------------------------Current Iteratiion: {iteration_no}------------------------")
-                    iteration_no += 1
-                    print(f"Algo = {algorithm.name}, Th Type = {threshold_type}, Window Size = {window_size}, Acc Size = {acc_size}, Gram Size = {gram}")
-                    nil = Nilsimsa(accumulator_size = acc_size, algorithm = algorithm, window_size = window_size, threshold_type = threshold_type, data=text)
-                    print(f'Hash Value: {nil.hexdigest()}')
-                    print("--------------------------------------------------------------------------------------")
+nil = Nilsimsa(data=f)
+print(nil.hexdigest())
+
+# n_grams = [2, 3,4,5,6,7,8,9,10] 
+# accumlator_sizes = [8, 1024]
+# window_sizes = [2, 3, 4,5,6,7,8,9,10]
+# threshold_types = [
+#     ThresholdType.MEAN, ThresholdType.MEDIAN, ThresholdType.MODE,
+#     ThresholdType.IQR, ThresholdType.Q1, ThresholdType.Q2,
+#     ThresholdType.STANDARD_DEVIATION,
+#     ]
+
+# listed_algorithms = [
+#     Algorithms.MD2, Algorithms.MD5, Algorithms.MD4,
+#     Algorithms.SHA1, Algorithms.SHA224, Algorithms.SHA256,
+#     Algorithms.SHA384, Algorithms.SHA512, Algorithms.WHIRLPOOL,
+#     Algorithms.ADLER32, Algorithms.CRC32, Algorithms.FNV132, Algorithms.FNV1A32, Algorithms.FNV1A64, Algorithms.FNV164,
+#     Algorithms.MMH3
+#     ]
+
+# iteration_no = 1
+# for gram in n_grams:
+#     for acc_size in range(accumlator_sizes[0], accumlator_sizes[1], 8):
+#         for window_size in window_sizes:
+#             for threshold_type in threshold_types:
+#                 for algorithm in listed_algorithms:
+#                     print(f"\n------------------------Current Iteratiion: {iteration_no}------------------------")
+#                     iteration_no += 1
+#                     print(f"Algo = {algorithm.name}, Th Type = {threshold_type}, Window Size = {window_size}, Acc Size = {acc_size}, Gram Size = {gram}")
+#                     nil = Nilsimsa(accumulator_size = acc_size, algorithm = algorithm, window_size = window_size, threshold_type = threshold_type, data=text)
+#                     print(f'Hash Value: {nil.hexdigest()}')
+#                     print("--------------------------------------------------------------------------------------")
 

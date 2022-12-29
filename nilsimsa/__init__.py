@@ -5,7 +5,11 @@ import numpy as np
 from itertools import combinations
 import statistics as st
 from all_hashes import get_hash
-from utils import interpolate
+from utils import interpolate, is_null_byte
+
+def is_iterable_non_string(obj):
+        return hasattr(obj, '__iter__') and not isinstance(obj, (bytes, str))
+
 class Nilsimsa(object):
     def __init__(self, accumulator_size = 256, algorithm = Algorithms.TRAN, window_size = 5, n_grams = 3, threshold_type = ThresholdType.MEAN, transformation_const = TRAN, trigram_random=[0,1,2,3,4,5,6,7], data = None):
        
@@ -26,21 +30,39 @@ class Nilsimsa(object):
         #     raise Exception("invalid accumulator to digest size error. accumulator_size should be 8 * digest size.")
 
         if data:
-            if isinstance(data, (bytes, str)):
+            if is_iterable_non_string(data):
+                for chunk in data:
+                    
+                    self.process(chunk)
+            elif isinstance(data, (bytes, str)):
+                # if isinstance(data, bytes):
+                #     data = data.decode('utf-8')
+                #     data = data.rsplit('\x00')
+                
                 self.process(data)
+                
+    
             else:
                 raise TypeError("Excpected string, iterable or None, got {}"
                                     .format(type(data)))
 
+
+    
     def tran_hash(self, a, b, c, n):
         return ((self.transformation_const[(a+n)&255]^self.transformation_const[b]*(n+n+1))+self.transformation_const[(c)^self.transformation_const[n]]) & 255
 
     
     def update_accumulator(self, letters, rnd):
+       
         if self.algorithm != Algorithms.TRAN:
-            letters = [chr(x) for x in letters]
+            # print(letters)
+            letters = [str(x) for x in letters]
             current_data = '' . join(letters)
-            hash_val = get_hash(current_data, self.algorithm.name)
+            # current_data.replace("\\r\\n", '')
+            # if '\x00' in current_data:
+            #     return
+            
+            hash_val = get_hash(str(current_data), str(self.algorithm.name))
             int_hash_value = int(hash_val, 16)
             interpolated_value = interpolate(int_hash_value, self.algorithm.min_size, self.algorithm.max_size, 0, self.accumulator_size)
             self.acc[interpolated_value] += 1 

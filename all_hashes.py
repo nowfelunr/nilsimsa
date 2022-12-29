@@ -23,7 +23,7 @@ def get_hash(text, hash_name):
     if hash_name not in listed_hasehs:
         raise Exception(f'{hash_name} is not supported')
     # print(f'get_{hash_name}' + f'("{text}")')
-    result = eval(f'_get_{hash_name}' + f'("{text}")')
+    result = eval(f'_get_{hash_name}' + f"('{text}')")
     return result
 
 

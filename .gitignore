@@ -1,1 +1,5 @@
 venv/
+exported-hashes/
+transfer/
+iot-sentinal/
+__pycache__/
